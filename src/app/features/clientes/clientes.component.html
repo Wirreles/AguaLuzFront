@@ -1,1 +1,20 @@
-<p>clientes works!</p>
+<div class="clientes-container">
+  <div class="header">
+    <h1>Clientes</h1>
+    <div class="actions">
+      <div class="search-box">
+        <input 
+          type="text" 
+          placeholder="Buscar clientes..." 
+          (input)="buscar($event)"
+        />
+        <i class="fas fa-search"></i>
+      </div>
+      <button class="btn-agregar" [routerLink]="['/clientes/nuevo']">
+        <i class="fas fa-plus"></i> Nuevo Cliente
+      </button>
+    </div>
+  </div>
+  
+  <app-clientes-lista [clientes]="clientesFiltrados"></app-clientes-lista>
+</div>

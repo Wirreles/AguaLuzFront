@@ -1,0 +1,45 @@
+<div class="sidebar">
+  <div class="user-info">
+    <div class="avatar">
+      <i class="fas fa-user"></i>
+    </div>
+    <div class="user-details">
+      <div class="user-name">{{ authService.getCurrentUser()?.name || 'Usuario' }}</div>
+      <div class="user-role">{{ userRole === 'coordinador' ? 'Coordinador Logístico' : 'Distribuidor' }}</div>
+    </div>
+  </div>
+  
+  <div class="menu">
+    <a [routerLink]="['/dashboard']" routerLinkActive="active">
+      <i class="fas fa-home"></i>
+      <span>Dashboard</span>
+    </a>
+    <a [routerLink]="['/clientes']" routerLinkActive="active">
+      <i class="fas fa-users"></i>
+      <span>Clientes</span>
+    </a>
+    <a [routerLink]="['/zonas']" routerLinkActive="active">
+      <i class="fas fa-map-marker-alt"></i>
+      <span>Zonas</span>
+    </a>
+    <a [routerLink]="['/distribuidores']" routerLinkActive="active" *ngIf="userRole === 'coordinador'">
+      <i class="fas fa-truck"></i>
+      <span>Distribuidores</span>
+    </a>
+    <a [routerLink]="['/pedidos']" routerLinkActive="active">
+      <i class="fas fa-clipboard-list"></i>
+      <span>Pedidos</span>
+    </a>
+    <a [routerLink]="['/historial-llamadas']" routerLinkActive="active">
+      <i class="fas fa-phone-alt"></i>
+      <span>Historial Llamadas</span>
+    </a>
+  </div>
+  
+  <div class="logout">
+    <a (click)="authService.logout(); router.navigate(['/login'])">
+      <i class="fas fa-sign-out-alt"></i>
+      <span>Cerrar Sesión</span>
+    </a>
+  </div>
+</div>

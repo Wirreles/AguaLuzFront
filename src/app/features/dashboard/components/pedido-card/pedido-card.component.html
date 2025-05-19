@@ -1,0 +1,30 @@
+<div class="pedido-card">
+  <div class="card-header">
+    <div class="cliente-info">
+      <div class="numero-pedido">{{pedido.index}}</div>
+      <div class="telefono">{{pedido.cliente.telefono}}</div>
+      <div class="cantidad-pedidos">{{pedido.cliente.totalPedidos}} pedidos</div>
+    </div>
+    <div class="fecha">
+      {{pedido.fecha | date:'dd/MM/yyyy'}}
+      <div class="calificacion">
+        <i class="fas fa-star" *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" 
+           [class.filled]="i < pedido.cliente.calificacion"></i>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card-body">
+    <div class="destino-label">DESTINO</div>
+    <div class="destino-valor">{{pedido.destino.direccion}}</div>
+    <div class="zona-valor">{{pedido.destino.zona}}</div>
+    
+    <div class="observaciones-label">OBSERVACIONES CLIENTE Y PEDIDO</div>
+    <div class="observaciones-valor">{{pedido.observaciones}}</div>
+  </div>
+  
+  <div class="card-footer">
+    <button class="btn-editar" (click)="editarContacto()">Editar contacto</button>
+    <button class="btn-agregar" (click)="agregarPedido()">Agregar pedido</button>
+  </div>
+</div>

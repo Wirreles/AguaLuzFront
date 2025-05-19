@@ -1,0 +1,118 @@
+.pedido-card {
+  background-color: #102a43;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+  
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    border-bottom: 1px solid #1e3a5f;
+    
+    .cliente-info {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      
+      .numero-pedido {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        background-color: #1e3a5f;
+        border-radius: 50%;
+        font-weight: bold;
+      }
+      
+      .telefono {
+        font-size: 18px;
+        font-weight: bold;
+      }
+      
+      .cantidad-pedidos {
+        font-size: 14px;
+        color: #6c8fb1;
+      }
+    }
+    
+    .fecha {
+      text-align: right;
+      font-size: 14px;
+      color: #6c8fb1;
+      
+      .calificacion {
+        margin-top: 0.25rem;
+        
+        i {
+          color: #6c8fb1;
+          font-size: 12px;
+          
+          &.filled {
+            color: #f39c12;
+          }
+        }
+      }
+    }
+  }
+  
+  .card-body {
+    padding: 1rem;
+    
+    .destino-label, .observaciones-label {
+      font-size: 12px;
+      color: #6c8fb1;
+      margin-bottom: 0.25rem;
+    }
+    
+    .destino-valor {
+      font-weight: bold;
+      margin-bottom: 0.25rem;
+    }
+    
+    .zona-valor {
+      font-size: 14px;
+      color: #6c8fb1;
+      margin-bottom: 1rem;
+    }
+    
+    .observaciones-valor {
+      font-size: 14px;
+      margin-bottom: 1rem;
+    }
+  }
+  
+  .card-footer {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1rem 1rem;
+    
+    button {
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      
+      &.btn-editar {
+        background-color: transparent;
+        border: 1px solid #1e3a5f;
+        color: white;
+        
+        &:hover {
+          background-color: #1e3a5f;
+        }
+      }
+      
+      &.btn-agregar {
+        background-color: #3498db;
+        border: none;
+        color: white;
+        
+        &:hover {
+          background-color: #2980b9;
+        }
+      }
+    }
+  }
+}

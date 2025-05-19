@@ -1,0 +1,12 @@
+<nav class="navbar">
+  <div class="nav-links">
+    <a [routerLink]="['/dashboard']" [class.active]="activeLink === 'inicio'" (click)="setActiveLink('inicio')">Inicio</a>
+    <a [routerLink]="['/clientes']" [class.active]="activeLink === 'clientes'" (click)="setActiveLink('clientes')">Clientes</a>
+    <a [routerLink]="['/zonas']" [class.active]="activeLink === 'zonas'" (click)="setActiveLink('zonas')">Zonas</a>
+    <a [routerLink]="['/distribuidores']" [class.active]="activeLink === 'distribuidores'" (click)="setActiveLink('distribuidores')">Distribuidores</a>
+    <a [routerLink]="['/historial-llamadas']" [class.active]="activeLink === 'historial-llamadas'" (click)="setActiveLink('historial-llamadas')">Historial llamadas</a>
+  </div>
+  <div class="logo">
+    <img src="assets/images/agualuz-logo.png" alt="Agualuz Logo">
+  </div>
+</nav>

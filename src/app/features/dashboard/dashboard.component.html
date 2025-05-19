@@ -1,0 +1,57 @@
+<div class="dashboard-container">
+  <div class="dashboard-header">
+    <div class="pedidos-cards">
+      <app-pedido-card 
+        *ngFor="let pedido of pedidosRecientes.slice(0, 2)" 
+        [pedido]="pedido">
+      </app-pedido-card>
+    </div>
+    
+    <app-estadisticas 
+      [identificados]="estadisticas.identificados"
+      [nuevos]="estadisticas.nuevos"
+      [anonimos]="estadisticas.anonimos"
+      [currentTime]="currentTime"
+      [currentDate]="currentDate">
+    </app-estadisticas>
+  </div>
+  
+  <div class="pedidos-lista-container">
+    <div class="filtros">
+      <div class="search-box">
+        <input type="text" placeholder="Buscar pedidos..." />
+        <i class="fas fa-search"></i>
+      </div>
+      
+      <div class="filter-options">
+        <label [class.active]="filtroActual === 'todos'">
+          <input type="radio" name="filtro" (click)="aplicarFiltro('todos')" [checked]="filtroActual === 'todos'">
+          <span>Todos</span>
+        </label>
+        <label [class.active]="filtroActual === 'entregados'">
+          <input type="radio" name="filtro" (click)="aplicarFiltro('entregados')" [checked]="filtroActual === 'entregados'">
+          <span>Entregados</span>
+        </label>
+        <label [class.active]="filtroActual === 'pendientes'">
+          <input type="radio" name="filtro" (click)="aplicarFiltro('pendientes')" [checked]="filtroActual === 'pendientes'">
+          <span>Entrega pendiente</span>
+        </label>
+        
+        <div class="dropdown">
+          <button class="dropdown-toggle">Último mes <i class="fas fa-chevron-down"></i></button>
+        </div>
+      </div>
+      
+      <div class="action-buttons">
+        <button class="btn-marcar-entregados">Marcar como entregados</button>
+        <button class="btn-icon"><i class="fas fa-trash"></i></button>
+        <button class="btn-icon"><i class="fas fa-file-export"></i></button>
+      </div>
+    </div>
+    
+    <app-pedidos-lista 
+      [pedidos]="pedidosFiltrados"
+      (marcarEntregado)="marcarComoEntregado($event)">
+    </app-pedidos-lista>
+  </div>
+</div>

@@ -1,27 +1,15 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from "@angular/core"
+import { CommonModule } from "@angular/common"
+import { RouterModule, type Routes } from "@angular/router"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
+import { DistribuidoresComponent } from "./distribuidores.component"
+import { SharedModule } from "../../shared/shared.module"
 
-import { DistribuidoresComponent } from './distribuidores.component';
-import { DistribuidorDetailComponent } from './components/distribuidor-detail/distribuidor-detail.component';
-import { PedidosHistorialComponent } from './components/pedidos-historial/pedidos-historial.component';
-import { DistribuidoresService } from './services/distribuidores.service';
+const routes: Routes = [{ path: "", component: DistribuidoresComponent }]
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    RouterModule,
-    HttpClientModule,
-    DistribuidoresComponent,
-    DistribuidorDetailComponent,
-    PedidosHistorialComponent
-  ],
-  providers: [
-    DistribuidoresService
-  ]
+  declarations: [DistribuidoresComponent],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, SharedModule, RouterModule.forChild(routes)],
+  exports: [],
 })
-export class DistribuidoresModule { }
+export class DistribuidoresModule {}

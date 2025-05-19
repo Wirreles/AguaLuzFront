@@ -1,0 +1,110 @@
+<div class="cliente-form-container">
+  <div class="header">
+    <h1>{{ isEditing ? 'Editar Cliente' : 'Nuevo Cliente' }}</h1>
+    <button class="btn-volver" (click)="cancelar()">
+      <i class="fas fa-arrow-left"></i> Volver
+    </button>
+  </div>
+  
+  <div class="form-card">
+    <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="nombre">Nombre</label>
+          <input 
+            type="text" 
+            formControlName="nombre" 
+            id="nombre" 
+            [ngClass]="{ 'is-invalid': submitted && f['nombre'].errors }"
+          />
+          <div *ngIf="submitted && f['nombre'].errors" class="invalid-feedback">
+            <div *ngIf="f['nombre'].errors['required']">El nombre es requerido</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="telefono">Teléfono</label>
+          <input 
+            type="text" 
+            formControlName="telefono" 
+            id="telefono" 
+            [ngClass]="{ 'is-invalid': submitted && f['telefono'].errors }"
+          />
+          <div *ngIf="submitted && f['telefono'].errors" class="invalid-feedback">
+            <div *ngIf="f['telefono'].errors['required']">El teléfono es requerido</div>
+            <div *ngIf="f['telefono'].errors['pattern']">El teléfono debe contener solo números</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="direccion">Dirección</label>
+        <input 
+          type="text" 
+          formControlName="direccion" 
+          id="direccion" 
+          [ngClass]="{ 'is-invalid': submitted && f['direccion'].errors }"
+        />
+        <div *ngIf="submitted && f['direccion'].errors" class="invalid-feedback">
+          <div *ngIf="f['direccion'].errors['required']">La dirección es requerida</div>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="zona">Zona</label>
+          <input 
+            type="text" 
+            formControlName="zona" 
+            id="zona" 
+            [ngClass]="{ 'is-invalid': submitted && f['zona'].errors }"
+          />
+          <div *ngIf="submitted && f['zona'].errors" class="invalid-feedback">
+            <div *ngIf="f['zona'].errors['required']">La zona es requerida</div>
+          </div>
+        </div>
+        
+        <div class="form-group">
+          <label for="calificacion">Calificación</label>
+          <select 
+            formControlName="calificacion" 
+            id="calificacion" 
+            [ngClass]="{ 'is-invalid': submitted && f['calificacion'].errors }"
+          >
+            <option value="0">0 - Sin calificar</option>
+            <option value="1">1 - Muy malo</option>
+            <option value="2">2 - Malo</option>
+            <option value="3">3 - Regular</option>
+            <option value="4">4 - Bueno</option>
+            <option value="5">5 - Excelente</option>
+          </select>
+          <div *ngIf="submitted && f['calificacion'].errors" class="invalid-feedback">
+            <div *ngIf="f['calificacion'].errors['required']">La calificación es requerida</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="form-row checkboxes">
+        <div class="form-group checkbox">
+          <input type="checkbox" formControlName="identificado" id="identificado" />
+          <label for="identificado">Cliente identificado</label>
+        </div>
+        
+        <div class="form-group checkbox">
+          <input type="checkbox" formControlName="nuevo" id="nuevo" />
+          <label for="nuevo">Cliente nuevo</label>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="button" class="btn-cancelar" (click)="cancelar()">Cancelar</button>
+        <button type="submit" class="btn-guardar" [disabled]="loading">
+          <span *ngIf="loading" class="spinner"></span>
+          {{ isEditing ? 'Actualizar' : 'Guardar' }}
+        </button>
+      </div>
+      
+      <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+    </form>
+  </div>
+</div>

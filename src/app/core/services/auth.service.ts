@@ -1,79 +1,88 @@
-import { Injectable } from '@angular/core';
-import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
-import { User } from '../models/user.interface';
-import { HttpClient } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-
-export interface LoginResponse {
-  token: string;
-  user: User;
-}
-
-export interface LoginRequest {
-  email: string;
-  password: string;
-}
+import { Injectable } from "@angular/core"
+import type { HttpClient } from "@angular/common/http"
+import { type Observable, throwError } from "rxjs"
+import { catchError, map, tap } from "rxjs/operators"
+import { environment } from "../../../environments/environment"
+import type { User } from "../models/user.model"
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class AuthService {
-  private currentUser: User | null = null;
-  private token: string | null = null;
-  private apiUrl = `${environment.apiUrl}/auth`;
+  private currentUser: User | null = null
+  private apiUrl = `${environment.apiUrl}/auth`
 
   constructor(private http: HttpClient) {
-    this.loadSession();
+    this.loadUserFromStorage()
   }
 
-  login(credentials: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>(`${this.apiUrl}/signin`, credentials);
+  login(email: string, password: string): Observable<User> {
+    return this.http.post<{ user: User; token: string }>(`${this.apiUrl}/login`, { email, password }).pipe(
+      tap((response) => {
+        this.setSession(response.token)
+        this.currentUser = response.user
+        localStorage.setItem("user", JSON.stringify(response.user))
+      }),
+      map((response) => response.user),
+      catchError((error) => {
+        return throwError(() => new Error(error.error.message || "Error en la autenticación"))
+      }),
+    )
   }
 
-  private loadSession(): void {
-    const storedToken = localStorage.getItem('token');
-    const storedUser = localStorage.getItem('currentUser');
-    
-    if (storedToken && storedUser) {
-      try {
-        this.token = storedToken;
-        this.currentUser = JSON.parse(storedUser);
-      } catch (error) {
-        console.error('Error al cargar la sesión:', error);
-        this.logout();
-      }
-    }
-  }
-
-  public setSession(authResult: LoginResponse): void {
-    localStorage.setItem('token', authResult.token);
-    localStorage.setItem('currentUser', JSON.stringify(authResult.user));
-    this.token = authResult.token;
-    this.currentUser = authResult.user;
+  register(userData: any): Observable<User> {
+    return this.http.post<{ user: User; token: string }>(`${this.apiUrl}/register`, userData).pipe(
+      tap((response) => {
+        this.setSession(response.token)
+        this.currentUser = response.user
+        localStorage.setItem("user", JSON.stringify(response.user))
+      }),
+      map((response) => response.user),
+      catchError((error) => {
+        return throwError(() => new Error(error.error.message || "Error en el registro"))
+      }),
+    )
   }
 
   logout(): void {
-    localStorage.removeItem('token');
-    localStorage.removeItem('currentUser');
-    this.token = null;
-    this.currentUser = null;
+    localStorage.removeItem("token")
+    localStorage.removeItem("expires_at")
+    localStorage.removeItem("user")
+    this.currentUser = null
   }
 
-  isLoggedIn(): boolean {
-    return !!this.token && !!this.currentUser;
-  }
-
-  getToken(): string | null {
-    if (!this.token) {
-      this.loadSession();
-    }
-    return this.token;
+  isAuthenticated(): boolean {
+    return Date.now() < this.getExpiration()
   }
 
   getCurrentUser(): User | null {
-    if (!this.currentUser) {
-      this.loadSession();
+    return this.currentUser
+  }
+
+  getUserRole(): string {
+    return this.currentUser?.role || ""
+  }
+
+  private setSession(token: string): void {
+    const expiresAt = Date.now() + 24 * 60 * 60 * 1000 // 24 hours
+    localStorage.setItem("token", token)
+    localStorage.setItem("expires_at", expiresAt.toString())
+  }
+
+  private getExpiration(): number {
+    const expiration = localStorage.getItem("expires_at")
+    return expiration ? Number.parseInt(expiration, 10) : 0
+  }
+
+  private loadUserFromStorage(): void {
+    const userStr = localStorage.getItem("user")
+    if (userStr) {
+      try {
+        this.currentUser = JSON.parse(userStr)
+      } catch (e) {
+        console.error("Error parsing user from localStorage", e)
+        this.logout()
+      }
     }
-    return this.currentUser;
   }
 }

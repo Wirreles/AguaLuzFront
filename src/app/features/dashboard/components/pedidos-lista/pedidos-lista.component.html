@@ -1,0 +1,34 @@
+<div class="pedidos-table">
+  <div class="table-header">
+    <div class="col-telefono">Teléfono y cliente</div>
+    <div class="col-observaciones">Observaciones y pedido</div>
+    <div class="col-destino">Destino</div>
+    <div class="col-zona">Zona</div>
+    <div class="col-horario">Horario</div>
+    <div class="col-estado">Estado</div>
+  </div>
+  
+  <div class="table-body">
+    <div class="table-row" *ngFor="let pedido of pedidos">
+      <div class="col-telefono">
+        <div class="telefono">{{pedido.cliente.telefono}}</div>
+        <div class="nombre">{{pedido.cliente.nombre}}</div>
+      </div>
+      <div class="col-observaciones">{{pedido.observaciones}}</div>
+      <div class="col-destino">{{pedido.destino.direccion}}</div>
+      <div class="col-zona">{{pedido.destino.zona}}</div>
+      <div class="col-horario">{{pedido.horario}}</div>
+      <div class="col-estado">
+        <button class="btn-estado" 
+                [class.entregado]="pedido.estado === 'entregado'"
+                [class.pendiente]="pedido.estado === 'pendiente'"
+                (click)="toggleEstado(pedido.id)">
+          <i class="fas" [class.fa-check]="pedido.estado === 'entregado'" [class.fa-clock]="pedido.estado === 'pendiente'"></i>
+        </button>
+        <button class="btn-opciones">
+          <i class="fas fa-chevron-down"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="clientes-table">
+  <div class="table-header">
+    <div class="col-nombre">Nombre</div>
+    <div class="col-telefono">Teléfono</div>
+    <div class="col-direccion">Dirección</div>
+    <div class="col-zona">Zona</div>
+    <div class="col-pedidos">Pedidos</div>
+    <div class="col-acciones">Acciones</div>
+  </div>
+  
+  <div class="table-body">
+    <div class="table-row" *ngFor="let cliente of clientes">
+      <div class="col-nombre">
+        <div class="nombre">{{cliente.nombre}}</div>
+        <div class="badges">
+          <span class="badge identificado" *ngIf="cliente.identificado">Identificado</span>
+          <span class="badge nuevo" *ngIf="cliente.nuevo">Nuevo</span>
+        </div>
+      </div>
+      <div class="col-telefono">{{cliente.telefono}}</div>
+      <div class="col-direccion">{{cliente.direccion}}</div>
+      <div class="col-zona">{{cliente.zona}}</div>
+      <div class="col-pedidos">
+        <div class="total-pedidos">{{cliente.totalPedidos}}</div>
+        <div class="calificacion">
+          <i class="fas fa-star" *ngFor="let star of [1, 2, 3, 4, 5]; let i = index" 
+             [class.filled]="i < cliente.calificacion"></i>
+        </div>
+      </div>
+      <div class="col-acciones">
+        <button class="btn-accion" (click)="verDetalle(cliente.id)">
+          <i class="fas fa-eye"></i>
+        </button>
+        <button class="btn-accion" (click)="editarCliente(cliente.id)">
+          <i class="fas fa-edit"></i>
+        </button>
+      </div>
+    </div>
+    
+    <div class="empty-state" *ngIf="clientes.length === 0">
+      <i class="fas fa-users"></i>
+      <p>No se encontraron clientes</p>
+    </div>
+  </div>
+</div>
