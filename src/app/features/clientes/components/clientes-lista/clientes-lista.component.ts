@@ -1,6 +1,6 @@
 import { Component, Input } from "@angular/core"
-import type { Router } from "@angular/router"
-import type { Cliente } from "../../../../shared/models/cliente.model"
+import { Router } from "@angular/router"
+import { Cliente } from "../../../../shared/models/cliente.model"
 
 @Component({
   selector: "app-clientes-lista",

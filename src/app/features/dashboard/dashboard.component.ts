@@ -1,7 +1,7 @@
-import { Component, type OnInit } from "@angular/core"
-import type { PedidosService } from "../../shared/services/pedidos.service"
-import type { ClientesService } from "../../shared/services/clientes.service"
-import type { Pedido } from "../../shared/models/pedido.model"
+import { Component, OnInit } from "@angular/core"
+import { PedidosService } from "../../shared/services/pedidos.service"
+import { ClientesService } from "../../shared/services/clientes.service"
+import { Pedido } from "../../shared/models/pedido.model"
 
 @Component({
   selector: "app-dashboard",

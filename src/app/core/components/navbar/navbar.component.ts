@@ -1,6 +1,6 @@
-import { Component, type OnInit } from "@angular/core"
-import type { Router } from "@angular/router"
-import type { AuthService } from "../../services/auth.service"
+import { Component, OnInit } from "@angular/core"
+import { Router } from "@angular/router"
+import { AuthService } from "../../services/auth.service"
 
 @Component({
   selector: "app-navbar",

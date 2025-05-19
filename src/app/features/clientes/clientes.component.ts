@@ -1,6 +1,6 @@
-import { Component, type OnInit } from "@angular/core"
-import type { ClientesService } from "../../shared/services/clientes.service"
-import type { Cliente } from "../../shared/models/cliente.model"
+import { Component, OnInit } from "@angular/core"
+import { ClientesService } from "../../shared/services/clientes.service"
+import { Cliente } from "../../shared/models/cliente.model"
 
 @Component({
   selector: "app-clientes",

@@ -1,9 +1,9 @@
-import { Component, type OnInit } from "@angular/core"
-import type { ActivatedRoute, Router } from "@angular/router"
-import type { ClientesService } from "../../../../shared/services/clientes.service"
-import type { PedidosService } from "../../../../shared/services/pedidos.service"
-import type { Cliente } from "../../../../shared/models/cliente.model"
-import type { Pedido } from "../../../../shared/models/pedido.model"
+import { Component, OnInit } from "@angular/core"
+import { ActivatedRoute, Router } from "@angular/router"
+import { ClientesService } from "../../../../shared/services/clientes.service"
+import { PedidosService } from "../../../../shared/services/pedidos.service"
+import { Cliente } from "../../../../shared/models/cliente.model"
+import { Pedido } from "../../../../shared/models/pedido.model"
 
 @Component({
   selector: "app-cliente-detalle",

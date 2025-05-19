@@ -1,7 +1,7 @@
-import { Component, type OnInit } from "@angular/core"
-import { type FormBuilder, type FormGroup, Validators } from "@angular/forms"
-import type { Router, ActivatedRoute } from "@angular/router"
-import type { ClientesService } from "../../../../shared/services/clientes.service"
+import { Component, OnInit } from "@angular/core"
+import { FormBuilder, FormGroup, Validators } from "@angular/forms"
+import { Router, ActivatedRoute } from "@angular/router"
+import { ClientesService } from "../../../../shared/services/clientes.service"
 
 @Component({
   selector: "app-cliente-form",
